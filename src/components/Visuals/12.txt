@@ -1,0 +1,111 @@
+<script>
+import { Line } from "vue-chartjs";
+
+export default {
+  created() {},
+  data() {
+    return {
+      intervalid1: "",
+    };
+  },
+  methods: {
+    get() {
+       this.renderChart( 
+        {
+          labels: this.chartLabels,
+          datasets: [
+            {
+              label: "Min Data",
+              data: this.chartData,
+              fill: false,
+              backgroundColor: "transparent",
+              borderColor: "rgba(240,230,140, 1)",
+              pointBackgroundColor: "rgba(255,140,0, 0.5)",
+            },
+            // {
+            //   label: "Max Data",
+            //   data: this.maxTemp,
+            //   fill: false,
+            //   backgroundColor: "transparent",
+            //   borderColor: "rgba(255,140,0, 1)",
+            //   pointBackgroundColor: "rgba(255,255,0, 0.5)",
+            // },
+          ],
+        },
+
+        {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  // beginAtZero: true,
+                  callback: function(value) {
+                    return value + "c°";
+                  },
+                },
+                labels: {
+                  font: {
+                    size: 4,
+                  },
+                },
+              },
+            ],
+          },
+          labels: {
+            plugins: {
+              legend: {
+                labels: {
+                  // This more specific font property overrides the global property
+                  font: {
+                    size: 2,
+                  },
+                },
+              },
+            },
+          },
+
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: "กราฟเส้น",
+          },
+        }
+      );
+    },
+  },
+
+  extends: Line,
+  // props: {
+  //   label: {
+  //     type: Array,
+  //   },
+  //   maxTemp: {
+  //     type: Array,
+  //   },
+  //   minTemp: {
+  //     type: Array,
+  //   },
+  //   height: {},
+  // },
+      props: {
+      chartData: {
+        type: Array,
+        required: true
+      },
+      chartLabels: {
+        type: Array,
+        required: true
+      }
+    },
+  mounted() {
+    // this.intervalid1 = setInterval(function(){
+    this.get();
+    //     console.log (this.get());
+    // }.bind(this), 3000);
+    // setInterval(this.get(),1000)
+    // console.log(setInterval(this.get(),1000));
+    // this.get()
+  },
+};
+</script>
